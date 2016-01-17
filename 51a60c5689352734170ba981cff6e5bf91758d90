@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fcbff3d_f1504ed7",
+        "filename": "gello_build.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 8461
+      },
+      "writtenOn": "2016-01-17T22:52:34Z",
+      "side": 1,
+      "message": "move this before \"if [ \"$CLEAN\" \u003d\u003d true }; then\" (line 48) instead",
+      "revId": "51a60c5689352734170ba981cff6e5bf91758d90",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
