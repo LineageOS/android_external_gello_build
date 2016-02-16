@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffb9cba7_8d276fb7",
+        "filename": "Maven.mk",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 13499
+      },
+      "writtenOn": "2016-02-16T01:57:23Z",
+      "side": 1,
+      "message": "the build complained if i didn\u0027t have this here, because of the CLEAR_VARS immediately above. personally, i would inline this file into the main Android.mk file - the PUBLISH_MAVEN_PREBUILT stuff doesn\u0027t make any sense if you\u0027re not building the code using WITH_GELLO_SOURCE anyway.",
+      "revId": "83013ba994065e6b963d52269dffc5d873200f0c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ffb9cba7_cd3487e1",
+        "filename": "Maven.mk",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 13499
+      },
+      "writtenOn": "2016-02-16T01:57:23Z",
+      "side": 1,
+      "message": "I\u0027m not sure here if you meant to use LOCAL_MAVEN_CLASSIFIER.. \"classifier\" is what the maven fetch script uses. if \"classification\" is what the maven publish script uses, we should make them match.",
+      "revId": "83013ba994065e6b963d52269dffc5d873200f0c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ffb9cba7_6d26bbba",
+        "filename": "Maven.mk",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 13499
+      },
+      "writtenOn": "2016-02-16T01:57:23Z",
+      "side": 1,
+      "message": "this is the line that actually *fetches* something from maven. it\u0027s commented out and above it i use the full path, but don\u0027t do that.. i should have removed prior to uploading, my build is just wonky at the moment so i hacked that up.",
+      "revId": "83013ba994065e6b963d52269dffc5d873200f0c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
