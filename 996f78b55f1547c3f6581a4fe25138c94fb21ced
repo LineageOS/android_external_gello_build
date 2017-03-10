@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba57610f_08b967e9",
+        "filename": "gello_build.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5008
+      },
+      "writtenOn": "2017-03-10T20:02:03Z",
+      "side": 1,
+      "message": "use a linaege repo please",
+      "range": {
+        "startLine": 65,
+        "startChar": 37,
+        "endLine": 65,
+        "endChar": 45
+      },
+      "revId": "996f78b55f1547c3f6581a4fe25138c94fb21ced",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
