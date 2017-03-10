@@ -1,13 +1,9 @@
 solutions = [
   { "name"        : "src",
-    "url"         : "git://codeaurora.org/quic/chrome4sdp/chromium/src.git@refs/remotes/origin/m42",
+    "url"         : "git://codeaurora.org/quic/chrome4sdp/chromium/src.git@refs/remotes/origin/m56",
     "deps_file"   : "DEPS",
-    "managed"     : True,
-    "safesync_url": "",
     "managed"     : False,
-    "custom_deps" : {
-        "src/swe/browser" : "https://github.com/CyanogenMod/android_packages_apps_gello.git@refs/remotes/origin/cm-13.0"
-    }
+    "safesync_url": "",
   },
 ]
 target_os = ["android"]
