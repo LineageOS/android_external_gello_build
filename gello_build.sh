@@ -47,15 +47,21 @@ function sync() {
         rm -rf $SRC_GELLO/out
         find $TOP_GELLO -name index.lock -exec rm {} \;
         gclient recurse git clean -fdx .
-
+    fi
+    
+    if [ -d "$TOP_GELLO/env/swe/channels/lineage" ]; then
+        rm -rf $TOP_GELLO/env/swe/channels/lineage
     fi
 
     if [ "$NOSYNC" != true ]; then
         cd $TOP_GELLO/env
 
         echo "Syncing now!"
-        gclient sync -n --no-nag-max
+        GYP_CHROMIUM_NO_ACTION=1 gclient sync -n --no-nag-max
         local SYNCRET=$?
+
+        cd swe/channels
+        git clone https://github.com/LineageOS/gello_channel lineage
 
         if [ "$CLEAN" == true ] && [ "$SYNCRET" == 0 ]; then
             gclient recurse git clean -fdx .
@@ -75,7 +81,6 @@ function sync() {
 function setup() {
     local DONE_FILE=$TOP_GELLO/.cm_done
     local GOOGLE_SDK=$SRC_GELLO/third_party/android_tools/sdk/extras/google/google_play_services
-    local LOCAL_GELLO=$TOP_GELLO/../../packages/apps/Gello
 
     cd $SRC_GELLO
 
@@ -83,33 +88,19 @@ function setup() {
         touch $DONE_FILE
     fi
 
-    . build/android/envsetup.sh
-
-    # If local is enabled we will be using local gello shell instead of synced one
-    if [ "$LOCAL" == true ]; then
-        if [ -d $LOCAL_GELLO ]; then
-            if [ -d $BUILD_GELLO ]; then
-                mv $BUILD_GELLO $BACKUP_GELLO
-            fi
-            cp -r $LOCAL_GELLO $BUILD_GELLO
-        else
-            echo "No local Gello found (excepted to be at $LOCAL_GELLO)"
-            return 4
-        fi
-    fi
-
-    if [ "$FAST" != true ] && [ -f $DONE_FILE ]; then
-        # !! The first time it asks a manual input to accept licenses !!
-        GYP_DEFINES="$GYP_DEFINES OS=android swe_channel=cm" gclient runhooks
-        return $?
-    else
-        return 0
-    fi
-
     # If we don't have Google SDKs, get them
     # !! This asks a manual input to accept licenses !!
     if [ ! -d $GOOGLE_SDK ]; then
         bash $SRC_GELLO/build/install-android-sdks.sh
+    fi
+
+    . build/android/envsetup.sh
+
+    if [ "$FAST" != true ] && [ -f $DONE_FILE ]; then
+        GYP_CHROMIUM_NO_ACTION=1 gn gen out/Release --args='swe_channels="lineage" target_os="android" is_debug=false symbol_level=0'
+        return $?
+    else
+        return 0
     fi
 }
 
@@ -167,10 +158,6 @@ function parseflags() {
             --clean)
                 CLEAN=true
                 ;;
-            --local)
-                NOSYNC=true
-                LOCAL=true
-                ;;
         esac
     done
 }
@@ -208,7 +195,6 @@ flags:
     --clean       = Make a clean build
     --depot       = Install Depot Tool
     --fast        = Skip sync and runhooks, useful for testing local changes
-    --local       = Pick local gello from packages/apps/Gello (for testing purpose)
     --no-sync     = Skip sync
 EOF
 }
